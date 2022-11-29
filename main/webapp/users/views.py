@@ -5,7 +5,7 @@ blueprint = Blueprint('user', __name__, url_prefix='/user')
 
 @blueprint.route('/login')
 def login():
-    return "Аутентификациф"
+    return "Аутентификация"
 
 
 @blueprint.route('/process-log', methods=['POST'])

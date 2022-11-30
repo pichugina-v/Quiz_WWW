@@ -1,28 +1,37 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
-blueprint = Blueprint('user', __name__, url_prefix='/user')
+auth_blueprint = Blueprint('auth', __name__, url_prefix='/auth')
+user_blueprint = Blueprint('user', __name__, url_prefix='/user')
 
 
-@blueprint.route('/login')
+@auth_blueprint.route('/login')
 def login():
-    return "Аутентификация"
+    return render_template('base.html')
 
 
-@blueprint.route('/process-log', methods=['POST'])
+@auth_blueprint.route('/process-log', methods=['POST'])
 def process_log():
     return "Отправка формы аутентификации"
 
 
-@blueprint.route('/register')
+@auth_blueprint.route('/register')
 def register():
     return "Регистрация"
 
 
-@blueprint.route('/process-reg', methods=['POST'])
+@auth_blueprint.route('/process-reg', methods=['POST'])
 def process_reg():
     return "Отправка формы регистрации"
 
 
-@blueprint.route('/logout')
+@auth_blueprint.route('/logout')
 def logout():
     return "Выход"
+
+@user_blueprint.route('/profiles')
+def user_list():
+    return "Все пользователи"
+
+@user_blueprint.route('/profiles/<int:user_id>')
+def user(user_id):
+    return "Профиль пользователя"

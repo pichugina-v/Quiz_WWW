@@ -12,11 +12,12 @@ def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
     db.init_app(app)
-    Migrate(app, db)
+    Migrate(app, db, render_as_batch=True)
 
     app.register_blueprint(home_blueprint)
     app.register_blueprint(quiz_blueprint)
     app.register_blueprint(user_blueprint)
+    
     return app
 
 app = create_app()

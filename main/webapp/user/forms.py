@@ -1,7 +1,7 @@
-from wtforms import (
-    Form, StringField,
-    EmailField, PasswordField,
-    SubmitField
+from flask_wtf import FlaskForm
+from wtforms import(
+    StringField, PasswordField,
+    SubmitField, EmailField
 )
 from wtforms.validators import (
     Optional, Email,
@@ -9,13 +9,13 @@ from wtforms.validators import (
 )
 
 
-class LoginForm(Form):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
-    sumbit = SubmitField('Отправить')
+    submit = SubmitField('Отправить')
 
 
-class RegistrationForm(Form):
+class RegistrationForm(FlaskForm):
     first_name = StringField('Имя', validators=[Optional()])
     last_name = StringField('Фамилия', validators=[Optional()])
     username = StringField(
@@ -27,7 +27,7 @@ class RegistrationForm(Form):
         'Email', validators=[DataRequired(
             message='Это поле обязательно'
         ), Email()]
-    ),
+    )
     password = PasswordField(
         'Пароль', validators=[DataRequired(
             message='Это поле обязательно'

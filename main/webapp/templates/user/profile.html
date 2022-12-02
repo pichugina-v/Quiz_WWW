@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} {{ page_title}} {% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h3>{{ user.username }}</h3>
+        {% if user.first_name and user.last_name %}
+          <h4>{{ user.first_name}} {{ user.last_name }}</h4>
+        {% elif user.last_name %}
+          <h4>{{ user.last_name }}</h4>
+        {% elif user.first_name %}
+          <h4>{{ user.first_name }}</h4>
+        {% endif %}
+        {% if current_user.id == user.id or current_user.is_admin %}
+          <h4>{{ user.email }}</h4>
+          <hr />
+            <a href="{{ url_for('user.user_edit', user_id=user.id) }}" class="btn btn-outline-success" role="button" aria-pressed="true">Редактировать профиль</a>
+          <hr />
+        {% endif %}
+      </div>                  
+    </div>
+  </div>
+{% endblock %}

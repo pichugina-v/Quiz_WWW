@@ -1,10 +1,14 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
 
 blueprint = Blueprint('quiz', __name__, url_prefix='/quiz')
 
 @blueprint.route('/')
 def quiz_info():
-    return "Здесь будет описание правил квиза"
+    page_title = 'Правила игры'
+    return render_template(
+        'quiz/quiz_info.html',
+        page_title=page_title
+    )
 
 
 @blueprint.route('/<int:qz_id>/question/<int:qu_id>',  methods=['GET', 'POST'])

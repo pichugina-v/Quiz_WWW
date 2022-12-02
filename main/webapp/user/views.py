@@ -26,7 +26,6 @@ def login():
 @auth_blueprint.route('/process-log', methods=['POST'])
 def process_log():
     form = LoginForm()
-
     if not form.validate_on_submit():
         flash('Неверное имя пользователя или пароль')
         return redirect(url_for('auth.login'))
@@ -50,7 +49,6 @@ def register():
 @auth_blueprint.route('/process-reg', methods=['POST'])
 def process_reg():
     form = RegistrationForm()
-
     if form.validate_on_submit():
         new_user = User(
             username=form.username.data,
@@ -74,8 +72,29 @@ def logout():
 
 @user_blueprint.route('/profiles')
 def user_list():
-    return "Все пользователи"
+    page_title = 'Список пользователей'
+    user_list = User.query.all()
+    return render_template(
+        'user/profiles.html',
+        user_list=user_list,
+        page_title=page_title
+    )
 
 @user_blueprint.route('/profiles/<int:user_id>')
 def user(user_id):
-    return "Профиль пользователя"
+    page_title= 'Профиль пользователя'
+    user = User.query.filter(User.id == user_id).first()
+    return render_template(
+        'user/profile.html',
+        user=user,
+        page_title=page_title
+    )
+
+@user_blueprint.route('profiles/<int:user_id>/edit')
+def user_edit(user_id):
+    return 'Edit'
+
+@user_blueprint.route('/subscribe')
+def user_subscribe(user_id):
+    return 'Subscribe'
+
